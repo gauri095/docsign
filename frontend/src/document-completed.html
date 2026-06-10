@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document signing complete</title>
+  <style>
+    body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+    body{margin:0!important;padding:0!important;background-color:#080B0F;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+    .shell{background-color:#080B0F;padding:40px 20px}
+    .card{background-color:#0D1117;border:1px solid #1E2A38;border-radius:16px;max-width:560px;margin:0 auto;overflow:hidden}
+    .card-header{background-color:#111820;padding:28px 40px 24px;border-bottom:1px solid #1E2A38}
+    .logo-text{font-size:22px;font-weight:700;color:#EBF2F8;text-decoration:none;letter-spacing:-0.5px}
+    .logo-accent{color:#00D4AA}
+    .card-body{padding:36px 40px}
+    .checkmark{text-align:center;font-size:48px;margin:0 0 20px}
+    .headline{font-size:22px;font-weight:600;color:#EBF2F8;margin:0 0 8px;letter-spacing:-0.4px;line-height:1.25;text-align:center}
+    .subline{font-size:14px;color:#7A94AD;margin:0 0 28px;line-height:1.5;text-align:center}
+    .body-text{font-size:14px;color:#A8BDD0;line-height:1.7;margin:0 0 20px}
+    .btn-wrap{text-align:center;margin:28px 0}
+    .btn-primary{display:inline-block;padding:14px 36px;background-color:#00D4AA;color:#080B0F!important;
+                 font-size:15px;font-weight:700;border-radius:10px;text-decoration:none;letter-spacing:0.2px}
+    .btn-secondary{display:inline-block;padding:12px 28px;background-color:transparent;color:#00D4AA!important;
+                   font-size:14px;font-weight:600;border-radius:10px;text-decoration:none;
+                   border:1px solid #00D4AA44;margin-left:12px}
+    .info-box{background-color:#002A22;border:1px solid #004A3A;border-radius:8px;padding:20px 24px;margin:24px 0}
+    .info-table{width:100%;border-collapse:collapse}
+    .info-label{font-size:12px;color:#00D4AA99;padding:5px 0;font-family:'Courier New',monospace;
+                text-transform:uppercase;letter-spacing:0.05em;width:130px;vertical-align:top}
+    .info-value{font-size:13px;color:#D4E2EE;padding:5px 0;vertical-align:top}
+    .signers-list{list-style:none;padding:0;margin:16px 0 0}
+    .signer-item{display:flex;align-items:center;font-size:13px;color:#A8BDD0;padding:5px 0;
+                 border-bottom:1px solid #1E2A38}
+    .signer-item:last-child{border-bottom:none}
+    .signer-check{color:#00D4AA;margin-right:10px;font-weight:700}
+    .hash-box{background-color:#080B0F;border:1px solid #1E2A38;border-radius:6px;padding:10px 14px;margin:16px 0}
+    .hash-label{font-size:10px;color:#526880;font-family:'Courier New',monospace;text-transform:uppercase;
+                letter-spacing:0.08em;margin:0 0 4px}
+    .hash-value{font-size:11px;color:#7A94AD;font-family:'Courier New',monospace;word-break:break-all;margin:0}
+    .divider{border:none;border-top:1px solid #1E2A38;margin:24px 0}
+    .card-footer{background-color:#080B0F;padding:24px 40px;border-top:1px solid #1E2A38}
+    .footer-text{font-size:11px;color:#3A4D62;text-align:center;line-height:1.6}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <div class="card">
+
+          <div class="card-header">
+            <span class="logo-text">Doc<span class="logo-accent">Sign</span></span>
+          </div>
+
+          <div class="card-body">
+
+            <div class="checkmark">✅</div>
+            <p class="headline">Document Fully Signed</p>
+            <p class="subline">
+              All parties have completed their signatures.
+              The sealed document is ready for download.
+            </p>
+
+            <p class="body-text">
+              Hi <strong th:text="${recipientName}" style="color:#EBF2F8;">Recipient</strong>,
+            </p>
+            <p class="body-text">
+              Great news — the document
+              <strong th:text="'&quot;' + ${documentTitle} + '&quot;'" style="color:#EBF2F8;">"Document"</strong>
+              has been signed by all required parties and is now legally complete.
+              A cryptographically sealed copy has been generated and is available below.
+            </p>
+
+            <!-- Completion info -->
+            <div class="info-box">
+              <table class="info-table">
+                <tr>
+                  <td class="info-label">Document</td>
+                  <td class="info-value" th:text="${documentTitle}">Title</td>
+                </tr>
+                <tr>
+                  <td class="info-label">Completed at</td>
+                  <td class="info-value" th:text="${completedAt}">timestamp</td>
+                </tr>
+                <tr>
+                  <td class="info-label">Signers</td>
+                  <td class="info-value" th:text="${signerCount}">2</td>
+                </tr>
+              </table>
+
+              <!-- Signers list -->
+              <ul class="signers-list">
+                <li class="signer-item" th:each="signer : ${signers}">
+                  <span class="signer-check">✓</span>
+                  <span th:text="${signer}">signer@example.com</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Document hash -->
+            <div class="hash-box">
+              <p class="hash-label">SHA-256 Document Fingerprint</p>
+              <p class="hash-value" th:text="${sha256Hash}">abc123...</p>
+            </div>
+
+            <!-- CTA buttons -->
+            <div class="btn-wrap">
+              <a class="btn-primary" th:href="${downloadUrl}">Download Signed PDF</a>
+              <a class="btn-secondary" th:href="${auditUrl}">View Audit Trail</a>
+            </div>
+
+            <hr class="divider"/>
+
+            <p class="body-text" style="font-size:13px;color:#526880">
+              This document has been sealed and its integrity protected by an immutable,
+              HMAC-secured audit trail. Any future modification to the document will
+              invalidate its cryptographic fingerprint.
+            </p>
+
+          </div>
+
+          <div class="card-footer">
+            <p class="footer-text">
+              Signed and sealed by DocSign · AES-256 encrypted signatures<br/>
+              Tamper-evident audit chain · SHA-256 integrity verified
+            </p>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

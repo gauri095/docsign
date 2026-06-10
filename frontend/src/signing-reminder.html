@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reminder: Document awaiting your signature</title>
+  <style>
+    body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+    body{margin:0!important;padding:0!important;background-color:#080B0F;
+         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+    .shell{background-color:#080B0F;padding:40px 20px}
+    .card{background-color:#0D1117;border:1px solid #1E2A38;border-radius:16px;max-width:560px;margin:0 auto;overflow:hidden}
+    .card-header{background-color:#111820;padding:28px 40px 24px;border-bottom:1px solid #1E2A38}
+    .logo-text{font-size:22px;font-weight:700;color:#EBF2F8;text-decoration:none;letter-spacing:-0.5px}
+    .logo-accent{color:#00D4AA}
+    .card-body{padding:36px 40px}
+    .headline{font-size:22px;font-weight:600;color:#EBF2F8;margin:0 0 8px;letter-spacing:-0.4px;line-height:1.25}
+    .body-text{font-size:14px;color:#A8BDD0;line-height:1.7;margin:0 0 20px}
+    .btn-wrap{text-align:center;margin:32px 0}
+    .btn-primary{display:inline-block;padding:14px 36px;background-color:#00D4AA;color:#080B0F!important;
+                 font-size:15px;font-weight:700;border-radius:10px;text-decoration:none;letter-spacing:0.2px}
+    .warn-box{background-color:#2A1E00;border:1px solid #4A3600;border-radius:8px;padding:14px 18px;margin:24px 0}
+    .warn-text{font-size:13px;color:#FFAA00;line-height:1.5;margin:0}
+    .info-box{background-color:#111820;border:1px solid #1E2A38;border-left:3px solid #FFAA00;
+              border-radius:8px;padding:16px 20px;margin:20px 0}
+    .info-table{width:100%;border-collapse:collapse}
+    .info-label{font-size:12px;color:#526880;padding:4px 0;font-family:'Courier New',monospace;
+                text-transform:uppercase;letter-spacing:0.05em;width:130px;vertical-align:top}
+    .info-value{font-size:13px;color:#D4E2EE;padding:4px 0;vertical-align:top}
+    .divider{border:none;border-top:1px solid #1E2A38;margin:24px 0}
+    .link-fallback{font-size:11px;color:#526880;word-break:break-all;font-family:'Courier New',monospace;margin:6px 0 0}
+    .card-footer{background-color:#080B0F;padding:24px 40px;border-top:1px solid #1E2A38}
+    .footer-text{font-size:11px;color:#3A4D62;text-align:center;line-height:1.6}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <div class="card">
+
+          <div class="card-header">
+            <span class="logo-text">Doc<span class="logo-accent">Sign</span></span>
+          </div>
+
+          <div class="card-body">
+
+            <p class="headline">⏱ Reminder: Your signature is needed</p>
+
+            <p class="body-text">
+              Hi <strong th:text="${signerName}" style="color:#EBF2F8;">Signer</strong>,
+            </p>
+            <p class="body-text">
+              This is a friendly reminder that
+              <strong th:text="${senderName}" style="color:#EBF2F8;">Document Owner</strong>
+              is still waiting for your electronic signature on the document below.
+            </p>
+
+            <div class="info-box">
+              <table class="info-table">
+                <tr>
+                  <td class="info-label">Document</td>
+                  <td class="info-value" th:text="${documentTitle}">Title</td>
+                </tr>
+                <tr>
+                  <td class="info-label">Requested by</td>
+                  <td class="info-value" th:text="${senderName}">Owner</td>
+                </tr>
+                <tr>
+                  <td class="info-label">Link expires</td>
+                  <td class="info-value" th:text="${expiresAt}" style="color:#FFAA00">date</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Expiry warning -->
+            <div class="warn-box">
+              <p class="warn-text">
+                ⚠ Your signing link expires on <strong th:text="${expiresAt}">date</strong>.
+                After expiry, you will need to request a new link from the document owner.
+              </p>
+            </div>
+
+            <div class="btn-wrap">
+              <a class="btn-primary" th:href="${signingLink}">Sign Now</a>
+            </div>
+
+            <p class="link-fallback" style="text-align:center" th:text="${signingLink}">https://...</p>
+
+            <hr class="divider"/>
+
+            <p class="body-text" style="font-size:13px;color:#526880">
+              If you have already signed this document, please ignore this reminder.
+              If you did not expect this request, contact
+              <span th:text="${senderEmail}" style="color:#7A94AD">owner@example.com</span>.
+            </p>
+
+          </div>
+
+          <div class="card-footer">
+            <p class="footer-text">
+              Sent via DocSign · Secure electronic signatures
+            </p>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

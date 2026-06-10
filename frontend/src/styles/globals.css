@@ -1,0 +1,137 @@
+/* ── Google Fonts — must be first ────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Sora:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ── Design Tokens ────────────────────────────────────────── */
+:root {
+  --ink-950:   #080B0F;
+  --ink-900:   #0D1117;
+  --ink-850:   #111820;
+  --ink-800:   #161D28;
+  --ink-700:   #1E2A38;
+  --ink-600:   #263344;
+  --ink-500:   #3A4D62;
+  --ink-400:   #526880;
+  --ink-300:   #7A94AD;
+  --ink-200:   #A8BDD0;
+  --ink-100:   #D4E2EE;
+  --ink-50:    #EBF2F8;
+
+  --accent:        #00D4AA;
+  --accent-hover:  #00EFC0;
+  --accent-dim:    #00D4AA22;
+  --accent-border: #00D4AA44;
+
+  --danger:    #FF4D4D;
+  --warning:   #FFAA00;
+  --success:   #00D4AA;
+
+  --surface-0: var(--ink-950);
+  --surface-1: var(--ink-900);
+  --surface-2: var(--ink-850);
+  --surface-3: var(--ink-800);
+  --surface-4: var(--ink-700);
+
+  --border:    #1E2A3833;
+  --border-em: #1E2A3888;
+
+  --font-display: 'Sora', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:  220ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--ink-950);
+  color: var(--ink-100);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ink-900); }
+::-webkit-scrollbar-thumb { background: var(--ink-600); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-400); }
+
+::selection { background: var(--accent-dim); color: var(--accent); }
+
+:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink-50);
+}
+
+code, kbd, pre, .mono { font-family: var(--font-mono); }
+
+.text-accent { color: var(--accent); }
+.text-muted  { color: var(--ink-300); }
+.text-faint  { color: var(--ink-400); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+.animate-fade-up  { animation: fadeUp  0.4s var(--ease) both; }
+.animate-fade-in  { animation: fadeIn  0.3s var(--ease) both; }
+.delay-1 { animation-delay: 60ms;  }
+.delay-2 { animation-delay: 120ms; }
+.delay-3 { animation-delay: 180ms; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--ink-800) 0px, var(--ink-700) 200px, var(--ink-800) 400px);
+  background-size: 400px;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 4px;
+}
+
+.card {
+  background: var(--surface-2);
+  border: 1px solid var(--ink-700);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color var(--dur) var(--ease);
+}
+.card:hover { border-color: var(--ink-500); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+.badge-draft     { background: var(--ink-700); color: var(--ink-200); }
+.badge-sent      { background: #0E2A4A; color: #4DA6FF; border: 1px solid #1A4A8A; }
+.badge-partial   { background: #2A1E00; color: #FFAA00; border: 1px solid #4A3600; }
+.badge-completed { background: #002A22; color: #00D4AA; border: 1px solid #004A3A; }
+.badge-expired   { background: #2A0E0E; color: #FF6B6B; border: 1px solid #4A1A1A; }
+.badge-cancelled { background: var(--ink-800); color: var(--ink-400); }
